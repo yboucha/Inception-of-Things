@@ -1,0 +1,25 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+  config.vm.box_check_update = false
+  
+  config.vm.define "ybouchaS" do |vm|
+    vm.vm.hostname = "ybouchaS"
+    vm.vm.network "private_network", ip: "192.168.56.110"
+    
+    vm.vm.provider "virtualbox" do |vb|
+      vb.name = "ybouchaS"
+      vb.memory = 1024  # Can be 1024 for K3s + apps
+      vb.cpus = 2
+    end
+    
+    # K3s installation
+    vm.vm.provision "shell", path: "scripts/install-k3s.sh"
+    
+    # Deploy applications
+    vm.vm.provision "shell", inline: <<-SHELL
+      echo "Waiting for K3s to be ready..."
+      sleep 30
+      sudo kubectl apply -f /vagrant/confs/
+    SHELL
+  end
+end

@@ -1,0 +1,16 @@
+# Kubernetes
+.kube/
+*.kubeconfig
+
+# Docker
+*.tar
+*.tar.gz
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.swp
+.DS_Store
