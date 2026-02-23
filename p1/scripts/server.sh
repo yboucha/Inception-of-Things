@@ -6,7 +6,8 @@ sudo apt-get update -y
 sudo apt-get install -y curl apt-transport-https
 
 # Install K3s server
-curl -sfL https://get.k3s.io | sh -s - server --node-name sel-jamaS
+# Install K3s server
+curl -sfL https://get.k3s.io | sh -s - server --node-name sel-jamaS --write-kubeconfig-mode 644
 
 # create kubectl shortcut (symlink to k3s)
 sudo ln -sf /usr/local/bin/k3s /usr/local/bin/kubectl
@@ -18,3 +19,7 @@ sudo chown -R vagrant:vagrant /home/vagrant/.kube
 
 # Output K3S token for worker join
 sudo cat /var/lib/rancher/k3s/server/node-token > /vagrant/scripts/k3s_token
+
+# Add kubectl alias
+echo 'alias k=kubectl' >> /home/vagrant/.bashrc
+chown vagrant:vagrant /home/vagrant/.bashrc
