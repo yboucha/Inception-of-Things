@@ -1,0 +1,35 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|  #this is the start of the configuration block for Vagrant. The 'config' variable is used to set up the virtual machines and their properties.
+  config.vm.box = "ubuntu/jammy64"
+  config.vm.provider "virtualbox" do |vb| #this block sets default hardware settings for all virtual machines created with VirtualBox. It specifies that each VM should have 1024 MB of memory and 1 CPU.
+    vb.memory = 1024
+    vb.cpus = 1
+  end
+
+  # Server Node
+  config.vm.define "sel-jamaS" do |server|
+    server.vm.hostname = "sel-jamaS"
+    server.vm.network "private_network", ip: "192.168.56.110"
+    server.vm.provider "virtualbox" do |vb|
+      vb.name = "sel-jamaS"
+    end
+    server.vm.provision "shell", path: "scripts/server.sh"
+  end
+
+  # Worker Node
+  config.vm.define "sel-jamaSW" do |worker|
+    worker.vm.hostname = "sel-jamaSW"
+    worker.vm.network "private_network", ip: "192.168.56.111"
+    worker.vm.provider "virtualbox" do |vb|
+      vb.name = "sel-jamaSW"
+    end
+    worker.vm.provision "shell", path: "scripts/worker.sh"
+  end
+
+  # SSH key setup for passwordless access
+  config.ssh.insert_key = false
+end
