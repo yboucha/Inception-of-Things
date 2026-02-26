@@ -11,21 +11,21 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|  #this is the start of th
   end
 
   # Server Node
-  config.vm.define "sel-jamaS" do |server|
-    server.vm.hostname = "sel-jamaS"
+  config.vm.define "ybouchaS" do |server|
+    server.vm.hostname = "ybouchaS"
     server.vm.network "private_network", ip: "192.168.56.110"
     server.vm.provider "virtualbox" do |vb|
-      vb.name = "sel-jamaS"
+      vb.name = "ybouchaS"
     end
     server.vm.provision "shell", path: "scripts/server.sh"
   end
 
   # Worker Node
-  config.vm.define "sel-jamaSW" do |worker|
-    worker.vm.hostname = "sel-jamaSW"
+  config.vm.define "ybouchaSW" do |worker|
+    worker.vm.hostname = "ybouchaSW"
     worker.vm.network "private_network", ip: "192.168.56.111"
     worker.vm.provider "virtualbox" do |vb|
-      vb.name = "sel-jamaSW"
+      vb.name = "ybouchaSW"
     end
     worker.vm.provision "shell", path: "scripts/worker.sh"
   end
