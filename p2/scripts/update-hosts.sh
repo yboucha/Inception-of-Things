@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "For Windows, run the .bat file as Administrator"
+echo "For Linux/Mac, add to /etc/hosts:"
+echo "192.168.56.110 app1.com"
+echo "192.168.56.110 app2.com"
+echo ""
+echo "Then test with:"
+echo "curl -H 'Host: app1.com' http://192.168.56.110"
+echo "curl -H 'Host: app2.com' http://192.168.56.110"
+echo "curl http://192.168.56.110"
